@@ -1,26 +1,116 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React,{useState, useEffect} from "react";
+// import React,{Component} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+import CountButton from "./components/CountButton";
+import Number from "./components/Number"
+import styled from "styled-components";
+
+
+
+
+// class App extends Component{
+  // state = {number : 0}
+
+  // constructor(props) {
+  //   super(props);
+  //   console.log("constructor 호출");
+  // }
+
+  // componentDidMount(){
+  //   console.log("componentDidMount 호출");
+  // }
+
+  // shouldComponentUpdate(nextProps, nextState){
+  //   console.log("shouldComponentUpdate 호출");
+  //   if(nextState.number % 3 === 0) return false;
+  //   return true;
+  // }
+
+  // componentDidUpdate(prevProps, prevState){
+  //   console.log("componentDidUpdate 호출");
+  // }
+
+  // countUp = () =>{
+  //   this.setState(
+  //     ({number})=>({
+  //       number:number +1
+  //     })
+  //   );
+  // }
+
+  // countDown = () =>{
+  //   const {number} = this.state
+  //   this.setState({number:number-1});
+    
+  // }
+  
+//   render(){
+//     const {number} = this.state;
+//     const {countUp, countDown} = this;
+
+//     console.log("render 호출");
+//     return(
+//       <Wrapper>
+//         <ButtonWrapper>
+//           <CountButton onClick ={countUp} text="+"/>
+//           <CountButton onClick ={countDown} text="-"/>
+//         </ButtonWrapper>
+//           <Number number = {number} />
+//       </Wrapper>
+//     );
+//   }
+// }
+
+
+const App = () =>{
+  const [number, setNumber] = useState(0);
+
+  useEffect(()=>{
+    console.log("useEffect -> componentDidMount");
+
+    return () =>{
+      console.log("useEffect -> componentWillUnmount");
+    }
+  },[]);
+
+  useEffect(()=>{
+    console.log(`componentDidUpdate (number)->${number}`);
+  },[number]);
+
+  useEffect(()=>{
+    console.log("useEffect -> componentDidUpdate");
+  });
+
+  return(
+    <Wrapper>
+      <ButtonWrapper>
+        <CountButton onClick ={()=>setNumber(number + 1)} text="+"/>
+        <CountButton onClick ={()=>setNumber(number - 1)} text="-"/>
+      </ButtonWrapper>
+        <Number number = {number} />
+    </Wrapper>
   );
 }
+
+
+
+
+const Wrapper = styled.div`
+  margin : 0 auto;
+  display : flex;
+  flex-direction : column;
+  align-items : center;
+  width : 100px;
+  margin-top : 100px;
+
+`;
+
+const ButtonWrapper = styled.div`
+  width : 100%;
+  display : flex;
+  justify-content : space-between;
+  margin-bottom: 50px;
+
+`;
 
 export default App;
